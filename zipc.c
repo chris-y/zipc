@@ -47,8 +47,18 @@
 #include <ctype.h>
 #include <errno.h>
 #include <time.h>
+#ifndef __amigaos4__
 #include <zlib.h>
+#else
+#include <proto/z.h>
 
+typedef uint8 Bytef;
+typedef APTR voidpf;
+#define crc32(A,B,C) CRC32(A,B,C)
+#define deflate(A,B) Deflate(A,B)
+#define deflateEnd(A) DeflateEnd(A)
+#define deflateInit2(A,B,C,D,E,F) DeflateInit2(A,B,C,D,E,F)
+#endif
 
 /*
  * Local constants...
